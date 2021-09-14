@@ -12,6 +12,7 @@ void main() => runApp(MyApp());
 class MyApp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
+    // ignore: todo
     // TODO: implement createState
     return _MyAppState();
   }
@@ -21,33 +22,51 @@ class _MyAppState extends State<MyApp> {
   final _questions = const [
     {
       'questionText': 'What\'s is your favourite color?',
-      'answers': ['Black', 'Red', 'Green', 'White'],
+      'answers': [
+        {'text': 'Black', 'score': 10},
+        {'text': 'Red', 'score': 5},
+        {'text': 'Green', 'score': 3},
+        {'text': 'White', 'score': 8},
+      ],
     },
     {
       'questionText': 'What\'s your favourite animal?',
-      'answers': ['Rabbit', 'Snake', 'Elephant', 'Lion'],
+      'answers': [
+        {'text': 'Rabbit', 'score': 10},
+        {'text': 'Snake', 'score': 1},
+        {'text': 'Elephant', 'score': 8},
+        {'text': 'Lion', 'score': 5},
+      ],
     },
     {
       'questionText': 'Who\'s your favorite instructor?',
-      'answers': ['A', 'B', 'C', 'D'],
+      'answers': [
+        {'text': 'A', 'score': 7},
+        {'text': 'B', 'score': 8},
+        {'text': 'C', 'score': 9},
+        {'text': 'D', 'score': 10},
+      ],
     },
   ];
 
   int _questionIndex = 0;
+  int _totalScore = 0;
 
-  void _answerQuestion() {
+  void _answerQuestion(int score) {
     //var aBool = true;
     //aBool = false;
 
-    _questionIndex = _questionIndex + 1;
+    _totalScore += score;
 
     setState(() {
-      if (_questionIndex < _questions.length) {
-        print('We have more questions!');
-      } else {
-        print("No more questions!");
-      }
+      _questionIndex = _questionIndex + 1;
     });
+    print(_questionIndex);
+    if (_questionIndex < _questions.length) {
+      print('We have more questions!');
+    } else {
+      print("No more questions!");
+    }
   }
 
   @override
@@ -65,7 +84,7 @@ class _MyAppState extends State<MyApp> {
                   questionIndex: _questionIndex,
                   questions: _questions,
                 )
-              : Result()),
+              : Result(_totalScore)),
     );
   }
 }
